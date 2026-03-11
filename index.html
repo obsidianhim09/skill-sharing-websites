@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Skill Sharing Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+
+
+body{
+font-family: Arial;
+text-align: center;
+}
+.dark-mode{
+background-color:#121212;
+color:white;
+}
+
+.dark-mode nav{
+background-color:#1f1f1f;
+}
+
+.dark-mode .card{
+background-color:#1e1e1e;
+border:1px solid #333;
+}
+
+.dark-mode a{
+color:#4da6ff;
+}
+
+nav{
+background-color: lightblue;
+padding:10px;
+display: flex;
+justify-content: center;
+gap: 15px;
+flex-wrap: wrap;
+}
+
+a{
+margin:10px;
+text-decoration:none;
+}
+
+.skills{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:20px;}
+
+
+.card{
+border:1px solid gray;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px lightgray;
+}
+
+/* MOBILE RESPONSIVE CODE YAHAN ADD KARO */
+
+@media (max-width:768px){
+
+nav{
+flex-direction:column;
+text-align:center;
+}
+
+.skills{
+grid-template-columns:1fr;
+}
+
+.card{
+width:100%;
+}
+
+.hero h1{
+font-size:28px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+}
+
+.card h3{
+color:blue;
+}
+
+.card button{
+background-color:blue;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.hero{
+background:linear-gradient(135deg,#7e96ab,#00f2fe);
+color:white;
+padding:60px 20px;
+border-radius:10px;
+margin:20px;
+}
+
+.hero button{
+margin-top:15px;
+padding:12px 25px;
+border:none;
+background:white;
+color:black;
+border-radius:25px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.card{
+background:white;
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+transition:transform 0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+nav{
+background:linear-gradient(90deg,#3fa0f5,#84e8ed);
+padding:15px;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+nav a{
+color:white;
+font-weight:bold;
+}
+
+button{
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+
+
+.rating{
+margin:10px 0;
+}
+
+.rating span{
+font-size:25px;
+cursor:pointer;
+color:gray;
+}
+
+.rating span.active{
+color:gold;
+}
+
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+}
+
+.popup-content{
+background:white;
+width:60%;
+margin:10% auto;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+
+.close{
+float:right;
+font-size:25px;
+cursor:pointer;
+}
+
+.popular, .testimonials, .join{
+text-align:center;
+padding:40px 20px;
+}
+
+.join button{
+padding:10px 20px;
+background:#007BFF;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.skills{
+background: linear-gradient(135deg,#e0f7fa,#e3f2fd);
+padding:40px;
+border-radius:15px;
+margin-top:20px;
+}
+
+
+
+.leaderboard{
+background:linear-gradient(135deg,#fff7ed,#ffe4e6);
+padding:60px 20px;
+margin-top:40px;
+border-radius:15px;
+}
+
+.leaderboard h2{
+font-size:30px;
+margin-bottom:30px;
+}
+
+.leaderboard-list{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.leader-card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+width:200px;
+transition:0.3s;
+}
+
+.leader-card:hover{
+transform:scale(1.05);
+}
+ /* Available Skills Section */
+
+.skills{
+background:linear-gradient(135deg,#e0f7fa,#e3f2fd);
+padding:40px;
+border-radius:15px;
+margin-top:20px;
+}
+
+.skills .card{
+background:white;
+border-radius:15px;
+padding:25px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+transition:all 0.3s ease;
+}
+
+.skills .card:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+.skills .card h3{
+color:#1976d2;
+margin-bottom:10px;
+}
+
+.skills .card p{
+color:#555;
+font-size:14px;
+}
+
+.skills .card button{
+margin-top:10px;
+background:#1976d2;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.skills .card button:hover{
+background:#0d47a1;
+}
+
+.chart-section{
+  background: linear-gradient(135deg,#eef2ff,#e0f7fa);
+  padding: 50px 20px;
+  margin-top: 40px;
+  border-radius: 15px;
+  text-align: center;
+}
+.chart-section h2{ margin-bottom: 30px;}
+
+
+/* Available Skills Section */
+
+.skills-section{
+background:linear-gradient(135deg,#f0f9ff,#e0f2fe);
+padding:60px 20px;
+margin-top:40px;
+border-radius:10px;
+}
+
+.skills-section h2{
+font-size:30px;
+margin-bottom:30px;
+color:#1e3a8a;
+}
+
+.skills{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+padding:20px;
+}
+
+.skills .card{
+background:white;
+border-radius:15px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+transition:all 0.3s ease;
+}
+
+.skills .card:hover{
+transform:translateY(-10px);
+box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+.skills .card h3{
+color:#2563eb;
+margin-bottom:10px;
+}
+
+.skills .card p{
+color:#555;
+}
+
+.skills .card button{
+margin-top:10px;
+background:#2563eb;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.skills .card button:hover{
+background:#1d4ed8;
+}
+
+/* Testimonials Section */
+
+.testimonials{
+background:linear-gradient(135deg,#eef2ff,#e0f7fa);
+padding:60px 20px;
+margin-top:40px;
+}
+
+.testimonials h2{
+font-size:28px;
+margin-bottom:30px;
+color:#333;
+}
+
+.testimonials .card{
+background:white;
+border-radius:15px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+transition:all 0.3s ease;
+}
+
+.testimonials .card:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 30px rgba(0,0,0,0.15);
+}
+
+.testimonials .card p{
+font-style:italic;
+color:#555;
+margin-bottom:10px;
+}
+
+.testimonials .card h4{
+color:#4f46e5;
+font-weight:bold;
+}
+
+
+
+@media (max-width:768px){
+
+nav{
+flex-direction:column;
+text-align:center;
+}
+
+.skills{
+grid-template-columns:1fr;
+padding:10px;
+}
+
+.card{
+width:100%;
+}
+
+.hero h1{
+font-size:28px;
+}
+
+}
+
+.chatbot-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#007BFF;
+color:white;
+font-size:24px;
+padding:12px 15px;
+border-radius:50%;
+cursor:pointer;
+}
+
+.chatbox{
+display:none;
+position:fixed;
+bottom:80px;
+right:20px;
+width:250px;
+background:white;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+overflow:hidden;
+}
+
+.chat-header{
+background:#007BFF;
+color:white;
+padding:10px;
+font-weight:bold;
+}
+
+.chat-body{
+height:200px;
+overflow-y:auto;
+padding:10px;
+font-size:14px;
+}
+
+.chatbox input{
+width:100%;
+padding:10px;
+border:none;
+border-top:1px solid #ccc;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="signup.html">Signup</a>
+<a href="login.html">Login</a>
+<a href="addskill.html">Add Skill</a>
+<button onclick="toggleTheme()">🌙 Toggle Mode</button>
+</nav>
+<section class="hero">
+<h1>Share Your Skills With The World</h1>
+<p>Learn, teach and grow together with our community.</p>
+<button onclick="window.location.href='addskill.html'">Start Sharing</button>
+</section>
+
+<hr>
+
+<h1>Welcome to Skill Sharing Website</h1>
+
+<h2>About Our Website</h2>
+
+<p>
+This website helps people share their skills with others.
+Users can signup, login and add their skills.
+</p>
+
+<h2>Search Skills</h2>
+
+<input 
+type="text" 
+id="searchInput" 
+placeholder="Search skills..." 
+onkeyup="searchSkills()"
+style="padding:10px; width:60%; border-radius:5px; border:1px solid gray;">
+
+
+<section class="testimonials">
+<h2>What Users Say</h2>
+
+<div class="skills">
+
+<div class="card">
+<p>"This platform helped me learn graphic design easily."</p>
+<h4>- Rahul</h4>
+</div>
+
+<div class="card">
+<p>"Great website to share and learn skills."</p>
+<h4>- Priya</h4>
+</div>
+
+<div class="card">
+<p>"Very useful for students and freelancers."</p>
+<h4>- Aman</h4>
+</div>
+
+</div>
+</section>
+
+<section class="join">
+<h2>Join Our Community</h2>
+<p>Share your skills and learn from others.</p>
+
+<button onclick="window.location.href='login.html'">Get Started</button>
+</section>
+
+<section class="chart-section">
+  <h2>skill popularity</h2>
+  <canvas id="skillChart" width="400"
+  height="200"></canvas>
+</section>
+
+
+<h2>Available Skills</h2>
+
+<div class="skills">
+
+<div class="card">
+<h3>Web Development</h3>
+<p>Learn how to build websites using HTML, CSS and JavaScript.</p>
+
+<div class="rating">
+<span onclick="rate(this,1)">★</span>
+<span onclick="rate(this,2)">★</span>
+<span onclick="rate(this,3)">★</span>
+<span onclick="rate(this,4)">★</span>
+<span onclick="rate(this,5)">★</span>
+</div>
+
+<button onclick="aiExplain('web')">Learn More</button>
+</div>
+
+<div class="card">
+<h3>Graphic Design</h3>
+<p>Create logos, posters and social media designs.</p>
+<div class="rating">
+<span onclick="rate(this,1)">★</span>
+<span onclick="rate(this,2)">★</span>
+<span onclick="rate(this,3)">★</span>
+<span onclick="rate(this,4)">★</span>
+<span onclick="rate(this,5)">★</span>
+</div>
+<button onclick="aiExplain('design')" >learn More</button>
+</div>
+
+<div class="card">
+<h3>Photography</h3>
+<p>Learn professional photography techniques.</p>
+<div class="rating">
+<span onclick="rate(this,1)">★</span>
+<span onclick="rate(this,2)">★</span>
+<span onclick="rate(this,3)">★</span>
+<span onclick="rate(this,4)">★</span>
+<span onclick="rate(this,5)">★</span>
+</div>
+<button onclick="aiExplain('photo')" >learn More</button></a>
+</div>
+
+<div class="card">
+<h3>Video Editing</h3>
+<p>Edit videos using professional tools.</p>
+<div class="rating">
+<span onclick="rate(this,1)">★</span>
+<span onclick="rate(this,2)">★</span>
+<span onclick="rate(this,3)">★</span>
+<span onclick="rate(this,4)">★</span>
+<span onclick="rate(this,5)">★</span>
+</div>
+<button onclick="aiExplain('videos')" >learn More</button></a>
+</div>
+
+
+</div>
+<section class="popular">
+<h2>Popular Skills</h2>
+
+<div class="skills">
+
+<div class="card">
+<h3>Python Programming</h3>
+<p>Learn Python for data science and web development.</p>
+<div class="rating">
+<span onclick="rate(this,1)">★</span>
+<span onclick="rate(this,2)">★</span>
+<span onclick="rate(this,3)">★</span>
+<span onclick="rate(this,4)">★</span>
+<span onclick="rate(this,5)">★</span>
+</div>
+<button onclick="aiExplain('Python')" >learn More</button></a>
+</div>
+
+<div class="card">
+<h3>Digital Marketing</h3>
+<p>Learn SEO, Ads and social media marketing.</p>
+<div class="rating">
+<span onclick="rate(this,1)">★</span>
+<span onclick="rate(this,2)">★</span>
+<span onclick="rate(this,3)">★</span>
+<span onclick="rate(this,4)">★</span>
+<span onclick="rate(this,5)">★</span>
+</div>
+<button onclick="aiExplain('Marketing')" >learn More</button></a>
+</div>
+
+<div class="card">
+<h3>App Development</h3>
+<p>Build Android apps using modern tools.</p>
+<div class="rating">
+<span onclick="rate(this,1)">★</span>
+<span onclick="rate(this,2)">★</span>
+<span onclick="rate(this,3)">★</span>
+<span onclick="rate(this,4)">★</span>
+<span onclick="rate(this,5)">★</span>
+</div>
+<button onclick="aiExplain('App')" >learn More</button></a>
+</div>
+
+</div>
+
+<section class="leaderboard">
+
+<h2>🏆 Top Skill Sharers</h2>
+
+<div class="leaderboard-list">
+
+<div class="leader-card">
+<h3>🥇 Rahul</h3>
+<p>Skills Shared: 10</p>
+</div>
+
+<div class="leader-card">
+<h3>🥈 Priya</h3>
+<p>Skills Shared: 8</p>
+</div>
+
+<div class="leader-card">
+<h3>🥉 Aman</h3>
+<p>Skills Shared: 6</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+<h2>Contact Us</h2>
+
+<p>Email: support@skillshare.com</p>
+<p>Phone: 1234567890</p>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup()">×</span>
+    <h2 id="popupTitle"></h2>
+    <p id="popupText"></p>
+  </div>
+</div>
+
+<hr>
+
+<footer>
+<p>© 2026 Skill Sharing Website</p>
+</footer>
+
+<!-- ⭐ CHATBOT CODE YAHAN ADD KARO -->
+
+<div class="chatbot-btn" onclick="toggleChat()">💬</div>
+
+<div class="chatbox" id="chatbox">
+<div class="chat-header">AI Skill Assistant</div>
+
+<div class="chat-body" id="chatBody"></div>
+
+<input 
+type="text" 
+id="userInput" 
+placeholder="Ask about skills..."
+onkeypress="if(event.key==='Enter')sendMessage()">
+</div>
+
+
+<script>
+  
+
+  function toggleTheme(){
+  document.body.classList.toggle("dark-mode");
+  
+  if(document.body.classList.contains("dark-mode")){
+  localStorage.setItem("theme","dark");
+  }else{
+  localStorage.setItem("theme","light");
+  }
+}
+  
+  function searchSkills(){
+
+let input=document.getElementById("searchInput").value.toLowerCase();
+let cards=document.querySelectorAll(".card");
+
+cards.forEach(function(card){
+
+let text=card.innerText.toLowerCase();
+
+if(text.includes(input)){
+card.style.display="block";
+}else{
+card.style.display="none";
+}
+
+});
+
+}
+function aiExplain(skill){
+
+let title="";
+let text="";
+
+if(skill=="web"){
+title="Web Development";
+text="Web development is the process of creating websites using HTML, CSS and JavaScript. It includes frontend design, backend programming and responsive layouts.";
+}
+
+if(skill=="design"){
+title="Graphic Design";
+text="Graphic design is used to create visual content such as logos, posters, banners and social media graphics using tools like Photoshop and Illustrator.";
+}
+
+if(skill=="photo"){
+title="Photography";
+text="Photography is the art of capturing images using cameras. It includes lighting techniques, composition and photo editing.";
+}
+
+if(skill=="video"){
+title="Video Editing";
+text="Video editing allows creators to cut, arrange and enhance videos using software like Premiere Pro, CapCut or Final Cut.";
+}
+
+document.getElementById("popup").style.display="block";
+document.getElementById("popupTitle").innerText=title;
+document.getElementById("popupText").innerText=text;
+
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+  function rate(star,value){
+
+let stars=star.parentElement.children;
+
+for(let i=0;i<stars.length;i++){
+
+if(i<value){
+stars[i].classList.add("active");
+}else{
+stars[i].classList.remove("active");
+}
+
+}
+
+}
+function toggleChat(){
+let chat=document.getElementById("chatbox");
+
+if(chat.style.display=="block"){
+chat.style.display="none";
+}else{
+chat.style.display="block";
+}
+}
+
+function sendMessage(){
+
+let input=document.getElementById("userInput");
+let message=input.value.toLowerCase();
+
+let chatBody=document.getElementById("chatBody");
+
+chatBody.innerHTML += "<p><b>You:</b> "+message+"</p>";
+
+let reply="Sorry, I don't understand.";
+
+if(message.includes("web")){
+reply="You should learn Web Development. It includes HTML, CSS and JavaScript.";
+}
+
+else if(message.includes("coding") || message.includes("programming")){
+reply="You can start with these skills: <br>• Web Development <br>• Python Programming <br>• App Development";
+}
+
+else if(message.includes("design")){
+reply="You should learn Graphic Design using Photoshop or Illustrator.";
+}
+
+else if(message.includes("photo")){
+reply="You should explore Photography and photo editing skills.";
+}
+
+else if(message.includes("video")){
+reply="You should learn Video Editing using tools like Premiere Pro or CapCut.";
+}
+
+chatBody.innerHTML += "<p><b>AI:</b> "+reply+"</p>";
+
+input.value="";
+chatBody.scrollTop=chatBody.scrollHeight;
+
+}
+let ctx=document.getElementById("skillChart");
+
+new Chart(ctx,{
+type:"bar",
+
+data:{
+labels:["Web Development","Python","Graphic Design","Photography"],
+
+datasets:[{
+label:"Popularity",
+data:[80,70,60,50],
+backgroundColor:[
+"#6366f1",
+"#22c55e",
+"#f59e0b",
+"#ef4444"
+]
+}]
+},
+
+options:{
+responsive:true,
+plugins:{
+legend:{
+display:false
+}
+}
+}
+
+});
+  
+  
+  window.onload=function(){
+  
+  if(localStorage.getItem("theme")=="dark"){
+  document.body.classList.add("dark-mode");
+  }
+  
+  }
+  
+  </script>
+
+</body>
+</html>
